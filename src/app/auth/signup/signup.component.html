@@ -1,0 +1,124 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-12 col-md-8 col-lg-6">
+        <form [formGroup]="registrationForm" (submit)="saveForm()" class="p-4 border rounded bg-light">
+            <h2 class="mb-4 mt-2">Signup Form </h2>
+            <p style="color: brown;"> * (asterisk) represents mandatory field</p>
+
+            <div class="mb-3">
+                <label for="firstname" class="form-label">First Name:<span style="color: brown;">*</span></label>
+                <input type="text" id="firstname" minlength="3" maxlength="20" formControlName="firstname"
+                    class="form-control">
+                <div class="text-danger"
+                    *ngIf="registrationForm.controls.firstname.invalid && registrationForm.controls.firstname.touched">
+                    Firstname is
+                    required with atleast 3 characters. </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="lastname" class="form-label">Last Name:<span style="color: brown;">*</span></label>
+                <input type="text" id="lastname" minlength="3" maxlength="20" formControlName="lastname"
+                    class="form-control">
+                <!-- <div class="text-danger"
+                    *ngIf="registrationForm.controls.lastname.invalid && registrationForm.controls.lastname.touched">
+                    Name is
+                    required with atleast 3 characters. </div> -->
+            </div>
+
+            <div class="mb-3"> <label for="email" class="form-label">Email:<span
+                        style="color: brown;">*</span></label><br>
+                <input type="email" formControlName="email" class="form-control">
+                <div *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.invalid"
+                    class="text-danger"> Please enter a valid email. </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone number:<span style="color: brown;">*</span></label>
+                <input type="tel" inputmode="numeric" maxlength="10"
+                    onkeypress="return event.charCode>=48 && event.charCode<=57" id="phoneNumber"
+                    formControlName="phoneNumber" class="form-control">
+                <div class="text-danger"
+                    *ngIf="registrationForm.controls.phoneNumber.invalid && registrationForm.controls.phoneNumber.touched">
+                    Enter a valid 10-digit phone number. </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="country" class="form-label">Country</label><br> 
+                <!-- <select name="country"
+                    formControlName="country" id="country" class="form-control">
+                    <option value="" disabled selected hidden>--Select country--</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="Canada">Canada</option>
+                </select> -->
+
+                <select formControlName="selectedcountry">
+                    <option value="" disabled selected hidden>--Select country--</option>
+                    <option *ngFor="let country of countries" [value]="country">{{country }}</option>
+                  </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="state" class="form-label"> State</label><br> 
+                <!-- <select name="state" formControlName="state"
+                    id="state" class="form-control">
+                    <option value="" disabled selected hidden>--Select state--</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                </select> -->
+                <select formControlName="selectedstate">
+                    <option value="" disabled selected hidden>--Select state--</option>
+                    <option *ngFor="let state of states" [value]="state">{{state }}</option>
+                  </select>
+                 
+
+                  
+            </div>
+
+
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender<span style="color: brown;"></span></label><br>
+
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="male">Male</mat-radio-button>
+                    <mat-radio-button value="female">Female</mat-radio-button>
+                  </mat-radio-group>
+                  
+                <!-- <div class="radio"> <label> <input type="radio" name="gender" formControlName="gender" value="1">Male
+                    </label><br> 
+                </div>
+                <div class="radio"> <label> <input type="radio" name="gender" formControlName="gender" value="0">Female
+                    </label><br> 
+                </div> -->
+            </div>
+
+
+
+
+            <div class="mb-3"> <label for="password" class="form-label">Password<span
+                        style="color: brown;">*</span></label><br> 
+                        <input type="password" formControlName="password"
+                    class="form-control">
+                <div *ngIf="registrationForm.controls.password.touched && registrationForm.controls.password.invalid"
+                    class="text-danger"> Please enter a password. </div>
+            </div>
+
+
+
+            <div class="mb-3"> <label for="confirmpassword" class="form-label">Confirm Password<span
+                        style="color: brown;">*</span></label><br>
+                <input type="password" formControlName="confirmpassword" (keyup)="matchpassword()" class="form-control">
+                <div *ngIf="registrationForm.controls.confirmpassword.touched && registrationForm.controls.confirmpassword.invalid"
+                    class="text-danger"> Please enter password again to confirm. </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid || mismatch">Sign
+                Up</button>
+        </form>
+    </div>
+</div>
+<!-- <p>{{this.registrationForm.status}}</p> -->
+{{this.mismatch}}
